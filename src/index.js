@@ -58,8 +58,16 @@
   AFocus.call = function(plugin, method, params, succCallback, failCallback) {
     var context = new JSBrigeContext(succCallback, failCallback);
     registerContext(context);
-    alog('{plugin:' + plugin + ',method:' + method + ',params:' + JSON.stringify(params) + ',context:' + JSON.stringify(context) + '}');  
-    afocus.dispatch(plugin, method, JSON.stringify(params), JSON.stringify(context));
+    //alog('{plugin:' + plugin + ',method:' + method + ',params:' + JSON.stringify(params) + ',context:' + JSON.stringify(context) + '}');  
+    //afocus.dispatch(plugin, method, JSON.stringify(params), JSON.stringify(context));
+    var protocol = {
+      plugin: plugin,
+      method: method,
+      params: params,
+      context: JSON.stringify(context)
+    };
+    alog(JSON.stringify(protocol));
+    window.prompt(JSON.stringify(protocol), 'hybrid://protocol/af');
   };
 
   AFocus.callback = function(token, result, params) {
