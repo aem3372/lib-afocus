@@ -1,6 +1,9 @@
 ;(function(win, lib) {
 
   var DEBUG = true;
+  var UA = navigator.userAgent;
+
+  var isSupportAFocus = UA.indexOf('AFocus') >= 0;
 
   var alog = function(msg) {
     if(DEBUG) {
@@ -47,6 +50,8 @@
     }
   }
 
+  // AFocus API
+  // Native <-> JavaScript
   var AFocus = function() {
     
   };
@@ -56,6 +61,11 @@
   };
 
   AFocus.call = function(plugin, method, params, succCallback, failCallback) {
+    if(!isSupportAFocus) {
+      alog('not support afocus');
+      return;
+    }
+
     var context = new JSBrigeContext(succCallback, failCallback);
     registerContext(context);
     //alog('{plugin:' + plugin + ',method:' + method + ',params:' + JSON.stringify(params) + ',context:' + JSON.stringify(context) + '}');  
@@ -71,6 +81,11 @@
   };
 
   AFocus.callback = function(token, result, params) {
+    if(!isSupportAFocus) {
+      alog('not support afocus');
+      return;
+    }
+
     if(token in tokenDic) {
       alog('{msg:\'[callback] find context succssed.\', token:' + token + '}');
       if(result == "successed") {
