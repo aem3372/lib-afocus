@@ -1,5 +1,6 @@
 ;(function(win, lib) {
-
+  "use strict";
+  
   var DEBUG = true;
   var UA = navigator.userAgent;
 
@@ -74,7 +75,7 @@
       plugin: plugin,
       method: method,
       params: params,
-      context: JSON.stringify(context)
+      info: JSON.stringify(context)
     };
     alog(JSON.stringify(protocol));
     window.prompt(JSON.stringify(protocol), 'hybrid://protocol/af');
