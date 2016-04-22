@@ -4,7 +4,7 @@
   var DEBUG = true;
   var UA = navigator.userAgent;
 
-  var isSupportAFocus = UA.indexOf('AFocus') >= 0;
+  var isSupportBreeze = UA.indexOf('Breeze') >= 0;
 
   var alog = function(msg) {
     if(DEBUG) {
@@ -51,26 +51,26 @@
     }
   }
 
-  // AFocus API
+  // Breeze API
   // Native <-> JavaScript
-  var AFocus = function() {
+  var Breeze = function() {
     
   };
 
-  AFocus.prototype = {
+  Breeze.prototype = {
     
   };
 
-  AFocus.call = function(plugin, method, params, succCallback, failCallback) {
-    if(!isSupportAFocus) {
-      alog('not support afocus');
+  Breeze.call = function(plugin, method, params, succCallback, failCallback) {
+    if(!isSupportBreeze) {
+      alog('not support breeze');
       return;
     }
 
     var context = new JSBrigeContext(succCallback, failCallback);
     registerContext(context);
     //alog('{plugin:' + plugin + ',method:' + method + ',params:' + JSON.stringify(params) + ',context:' + JSON.stringify(context) + '}');  
-    //afocus.dispatch(plugin, method, JSON.stringify(params), JSON.stringify(context));
+    //breeze.dispatch(plugin, method, JSON.stringify(params), JSON.stringify(context));
     var protocol = {
       plugin: plugin,
       method: method,
@@ -78,12 +78,12 @@
       info: JSON.stringify(context)
     };
     alog(JSON.stringify(protocol));
-    window.prompt(JSON.stringify(protocol), 'hybrid://protocol/af');
+    window.prompt(JSON.stringify(protocol), 'hybrid://protocol/breeze');
   };
 
-  AFocus.callback = function(token, result, params) {
-    if(!isSupportAFocus) {
-      alog('not support afocus');
+  Breeze.callback = function(token, result, params) {
+    if(!isSupportBreeze) {
+      alog('not support breeze');
       return;
     }
 
@@ -99,6 +99,6 @@
     }
   }
 
-  lib.AFocus = AFocus;
+  lib.Breeze = Breeze;
   
 })(window, window['lib'] || (window['lib'] = {}))
