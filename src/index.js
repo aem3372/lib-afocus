@@ -51,6 +51,8 @@
     }
   }
 
+  var listenerDic = {};
+
   // Breeze API
   // Native <-> JavaScript
   var Breeze = function() {
@@ -95,6 +97,39 @@
       } else if(result == "failed"){
         alog('{msg:\'[callback] execute failed callback.\', token:' + token + '}');
         tokenDic[token].failCallback(params);
+      }
+    }
+  }
+
+  Breeze.fire = function(event) {
+    alog('event:' + JSON.stringify(event));
+    if(event.code in listenerDic) {
+      var listeners = listenerDic[code];
+      for (var i=0; i<listeners.length; i++)
+      {
+        listeners[i](event);
+      }
+    }
+  }
+
+  Breeze.addEventListener = function(code, listener) {
+    if(!(code in listenerDic)) {
+      listenerDic[code] = new Array(listener);
+    } else {
+      listenerDic[code].push(listener);
+    }
+  }
+
+  Breeze.removeEventListener = function(code, listener) {
+    if(code in listenerDic) {
+      var listeners = listenerDic[code];
+      for (var i=0; i<listeners.length; i++)
+      {
+        if (listeners[i] === listener)
+        {
+          this.splice(i, 1);  
+          break;
+        }
       }
     }
   }
