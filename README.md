@@ -1,5 +1,9 @@
 # lib-breeze
 
+## 引入
+
+下载 build/breeze.js, 在html中引入。
+
 ## UA
 Breeze/version
 
