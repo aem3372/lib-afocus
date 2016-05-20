@@ -104,7 +104,7 @@
   Breeze.fire = function(event) {
     alog('event:' + JSON.stringify(event));
     if(event.code in listenerDic) {
-      var listeners = listenerDic[code];
+      var listeners = listenerDic[event.code];
       for (var i=0; i<listeners.length; i++)
       {
         listeners[i](event);
